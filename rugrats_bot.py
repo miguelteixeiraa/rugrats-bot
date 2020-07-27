@@ -94,7 +94,7 @@ class RugratsBot:
                     "Ypffh"
                 )
 
-                if self.isInternetOn() == 0:
+                if self.isInternetOn() == False:
                     continue
 
                 commentArea.send_keys(self._listOfComments[index])
