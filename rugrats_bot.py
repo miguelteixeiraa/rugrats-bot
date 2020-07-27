@@ -19,7 +19,7 @@ class RugratsBot:
         self._listOfComments = list()
 
         # default range seconds between comments
-        self._rangeTimeBetComments = 10
+        self._rangeTimeBetComments = 59
 
     def setLoginInfo(self, userLogin, userPass):
         self._userLogin = userLogin
