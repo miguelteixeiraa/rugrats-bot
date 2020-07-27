@@ -45,7 +45,6 @@ class RugratsBot:
         return False
 
     def startCommenting(self):
-
         # Sign in on instagram **outset**
         self._rugratSession.driver.get(
             "https://www.instagram.com/accounts/login/?hl=pt-br"
