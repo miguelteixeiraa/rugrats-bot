@@ -3,10 +3,16 @@
 
 An Instagram bot that automates follow and comments (tagging people too).
 
-1. install pip -> sudo apt install python3-pip
-2. install requestium -> pip3 install requestium
-3. run -> python3 bot_main.py
-4. have fun!
+```shell
+# 1. install pip
+sudo apt install python3-pip
+# 2. install requestium
+pip3 install requestium
+# 3. Download https://chromedriver.storage.googleapis.com/index.html?path=85.0.4183.we38/
+# 4. Put it extracted in the folder of this project
+# 5. run
+python3 bot_main.py
+````
 
 **Example:**
 
