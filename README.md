@@ -23,7 +23,7 @@ listOfComments = [
 ]
 rugratBot.setListOfComments(listOfComments)
 
-# url of the publication to send comments
+# url of publication to send comments
 rugratBot.setInstagramPageUrl("https://www.instagram.com/TargetUrl")
 
 # now, just watch our baby rugrat having fun with your instagram account
