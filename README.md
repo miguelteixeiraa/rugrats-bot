@@ -36,7 +36,7 @@ rugratBot.setInstagramPageUrl("https://www.instagram.com/TargetUrl")
 rugratBot.startCommenting()
 ```
 
-###Instagram limits:
+### Instagram limits:
 **Accounts older than one year (recommended to not have limited functions by instagram)**
  1. 10 - 15 comments per hour
  2. 600 - 1000 likes a day
