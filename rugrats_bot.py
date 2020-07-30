@@ -9,17 +9,17 @@ from requests import ConnectionError
 
 
 class RugratsBot:
-    def __init__(self):
+    def __init__(self, userLogin=str(), userPass=str()):
         self._rugratSession = Session(
             "./chromedriver", browser="chrome", default_timeout=15
         )
-        self._instagramPageUrl = str()
-        self._userLogin = str()
-        self._userPassword = str()
-        self._listOfComments = list()
+        self._userLogin = userLogin
+        self._userPassword = userPass
+        self._isLogged = False
 
-        # default range seconds between comments
-        self._rangeTimeBetComments = 59
+        # default/recomended range seconds between
+        self._rangeTimeBetComments = 400
+        self._rangeTimeBetFollow = 400
 
     def setLoginInfo(self, userLogin, userPass):
         self._userLogin = userLogin
@@ -44,7 +44,10 @@ class RugratsBot:
             print("No connection available")
         return False
 
-    def startCommenting(self):
+    def signIn(self, saveLoginInformatin=True):
+        if self._userLogin == "" or self._userPassword == "":
+            return
+
         # Sign in on instagram **outset**
         self._rugratSession.driver.get(
             "https://www.instagram.com/accounts/login/?hl=pt-br"
@@ -64,27 +67,67 @@ class RugratsBot:
         ).click()
         # Sign in on instagram **end**
 
-        # Save login information on Chromium driver **outset**
-        sleep(5)
-        self._rugratSession.driver.ensure_element_by_xpath(
-            "/html/body/div[1]/section/main/div/div/div/section/div/button"
-        ).click()
+        if saveLoginInformatin == True:
+            # Save login information on Chromium driver **outset**
+            sleep(5)
+            self._rugratSession.driver.ensure_element_by_xpath(
+                "/html/body/div[1]/section/main/div/div/div/section/div/button"
+            ).click()
 
-        sleep(5)
-        self._rugratSession.driver.ensure_element_by_xpath(
-            "/html/body/div[4]/div/div/div/div[3]/button[1]"
-        ).click()
-        # Save login information on Chromium driver **end**
+            sleep(5)
+            self._rugratSession.driver.ensure_element_by_xpath(
+                "/html/body/div[4]/div/div/div/div[3]/button[1]"
+            ).click()
+            # Save login information on Chromium driver **end**
+
+        self._isLogged = True
+
+    def signOut(self):
+        if self._isLogged:
+            self._rugratSession.driver.get("https://www.instagram.com")
+            self._rugratSession.driver.ensure_element_by_xpath(
+                "/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img"
+            ).click()
+            self._rugratSession.driver.ensure_element_by_xpath(
+                "/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div/div[2]/div[2]/div/div/div/div/div/div/div"
+            ).click()
+            sleep(5)
+
+    def followUsersByUserFollowing(self, followThroughUser, listToFollow=[]):
+        if self._isLogged == False:
+            raise Exception(
+                "First, yout should be logged in. Before start to follow, run 'yourBabyRugrat.signIn()'"
+            )
+        if len(listToFollow == 0):
+            # follow all users
+            self._rugratSession.driver.get(
+                "https://www.instagram.com" + followThroughUser
+            )
+            self._rugratSession.driver.ensure_element_by_xpath(
+                "/html/body/div[1]/section/main/div/header/section/ul/li[3]/a"
+            ).click()
+            user = 0
+            try:
+                while True:
+
+
+
+    def startCommenting(self, instagramUrlToComment, listOfComments):
+        if self._isLogged == False:
+            raise Exception(
+                "First, yout should be logged in. Before start commenting, run 'yourBabyRugrat.signIn()'"
+            )
 
         # Load target instagram page **outset**
-        self._rugratSession.driver.get(self._instagramPageUrl)
+        self._rugratSession.driver.get(instagramUrlToComment)
         # Load target instagram page **end**
 
         # start commenting
         while True:
+            maxTimeToComment = self._rangeTimeBetComments + 100
             try:
-                index = randrange(0, len(self._listOfComments))
-                sleepTime = randrange(2, self._rangeTimeBetComments)
+                index = randrange(0, len(listOfComments))
+                sleepTime = randrange(self._rangeTimeBetComments, maxTimeToComment)
                 commentArea = self._rugratSession.driver.ensure_element_by_class_name(
                     "Ypffh"
                 )
@@ -96,7 +139,7 @@ class RugratsBot:
                 if self.isInternetOn() == False:
                     continue
 
-                commentArea.send_keys(self._listOfComments[index])
+                commentArea.send_keys(listOfComments[index])
                 commentArea.submit()
                 sleep(sleepTime)
 
