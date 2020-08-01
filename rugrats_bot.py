@@ -5,6 +5,7 @@ from random import randrange
 from time import sleep
 
 from requestium import Session
+from bs4 import BeautifulSoup
 from requests import ConnectionError
 
 
@@ -44,7 +45,7 @@ class RugratsBot:
             print("No connection available")
         return False
 
-    def signIn(self, saveLoginInformatin=True):
+    def login(self, saveLoginInformatin=True):
         if self._userLogin == "" or self._userPassword == "":
             return
 
@@ -93,24 +94,25 @@ class RugratsBot:
             ).click()
             sleep(5)
 
-    def followUsersByUserFollowing(self, followThroughUser, listToFollow=[]):
+    def followProfilesTargetProfile(self, targetUser):
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start to follow, run 'yourBabyRugrat.signIn()'"
             )
-        if len(listToFollow == 0):
-            # follow all users
-            self._rugratSession.driver.get(
-                "https://www.instagram.com" + followThroughUser
-            )
-            self._rugratSession.driver.ensure_element_by_xpath(
-                "/html/body/div[1]/section/main/div/header/section/ul/li[3]/a"
-            ).click()
-            user = 0
-            try:
-                while True:
 
+        self._rugratSession.driver.get("https://www.instagram.com/" + targetUser)
+        self._rugratSession.driver.ensure_element_by_xpath(
+            "/html/body/div[1]/section/main/div/header/section/ul/li[3]/a"
+        ).click()
 
+        self._rugratSession.transfer_driver_cookies_to_session
+
+        profileResponse = self._rugratSession.get(
+            "https://www.instagram.com/" + targetUser
+        )
+        soupResponse = BeautifulSoup(profileResponse, "lxml")
+        numberOfFollowers = soupResponse.find_all(targetUser + "/followers/")
+        print(numberOfFollowers)
 
     def startCommenting(self, instagramUrlToComment, listOfComments):
         if self._isLogged == False:
