@@ -36,7 +36,7 @@ class RugratsBot:
         self._rangeTimeBetComments = timeBetweenComments
 
     def isInternetOn(self):
-        url = "http://www.google.com/"
+        url = "https://duckduckgo.com/"
         timeout = 5
         try:
             _ = self._rugratSession.get(url, timeout=timeout)
@@ -94,7 +94,7 @@ class RugratsBot:
             ).click()
             sleep(5)
 
-    def followProfilesTargetProfile(self, targetUser):
+    def followProfiles(self, targetUser):
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start to follow, run 'yourBabyRugrat.signIn()'"
@@ -108,6 +108,20 @@ class RugratsBot:
         self._rugratSession.transfer_driver_cookies_to_session
 
         numberOfFollowers = int(self.getNumberOfFollowers(targetUser).replace(",", ""))
+
+        followersContainerScroll = self._rugratSession.driver.ensure_element_by_xpath(
+            "//div[@class='isgrP']"
+        )
+
+        counter = 0
+        while counter < int(numberOfFollowers / 7):
+            self._rugratSession.driver.execute_script(
+                "arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].offsetHeight;",
+                followersContainerScroll,
+            )
+            sleep(2)
+            counter += 1
+
         # self._rugratSession.driver.execute_script("window.scrollIntoView();")
         for userToFollow in range(1, numberOfFollowers):
             sleep(20)
@@ -137,7 +151,11 @@ class RugratsBot:
 
         return numberOfFollowers
 
-    def startCommenting(self, instagramUrlToComment, listOfComments):
+
+    def commentingScrapingStuff(self):
+
+
+    def CommentingByList(self, instagramUrlToComment, listOfComments):
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start commenting, run 'yourBabyRugrat.signIn()'"

@@ -6,4 +6,4 @@ rugratBot = RugratsBot("Your username", "Your password")
 rugratBot.login()
 
 # follow all profiles a user follows
-rugratBot.followProfilesTargetProfile("Target user")
+rugratBot.followProfilesTargetProfile("target user")
