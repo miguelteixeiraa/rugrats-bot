@@ -83,7 +83,7 @@ class RugratsBot:
 
         self._isLogged = True
 
-    def signOut(self):
+    def logout(self):
         if self._isLogged:
             self._rugratSession.driver.get("https://www.instagram.com")
             self._rugratSession.driver.ensure_element_by_xpath(
@@ -107,12 +107,35 @@ class RugratsBot:
 
         self._rugratSession.transfer_driver_cookies_to_session
 
+        numberOfFollowers = int(self.getNumberOfFollowers(targetUser).replace(",", ""))
+        # self._rugratSession.driver.execute_script("window.scrollIntoView();")
+        for userToFollow in range(1, numberOfFollowers):
+            sleep(20)
+            self._rugratSession.driver.ensure_element_by_xpath(
+                "/html/body/div[4]/div/div/div[2]/ul/div/li["
+                + str(userToFollow)
+                + "]/div/div[3]/button"
+            ).click()
+
+    def getNumberOfFollowers(self, targetUser):
+        if self._isLogged == False:
+            raise Exception(
+                "First, yout should be logged in. Before start commenting, run 'yourBabyRugrat.signIn()'"
+            )
         profileResponse = self._rugratSession.get(
             "https://www.instagram.com/" + targetUser
         )
-        soupResponse = BeautifulSoup(profileResponse, "lxml")
-        numberOfFollowers = soupResponse.find_all(targetUser + "/followers/")
-        print(numberOfFollowers)
+        soupResponse = BeautifulSoup(profileResponse.text, "html.parser")
+        metaTags = soupResponse.find_all("meta")
+        numberOfFollowers = str()
+        for tag in metaTags:
+            if str(tag).lower().find("followers") != -1:
+                numberOfFollowers = tag
+
+        numberOfFollowers = str(numberOfFollowers).split()
+        numberOfFollowers = numberOfFollowers[3]
+
+        return numberOfFollowers
 
     def startCommenting(self, instagramUrlToComment, listOfComments):
         if self._isLogged == False:
