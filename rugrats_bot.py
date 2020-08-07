@@ -19,7 +19,7 @@ class RugratsBot:
         self._isLogged = False
 
         # default/recomended range seconds between
-        self._rangeTimeBetComments = 400
+        self._rangeTimeBetComments = 290
         self._rangeTimeBetFollow = 400
 
     def setLoginInfo(self, userLogin, userPass):
@@ -151,9 +151,8 @@ class RugratsBot:
 
         return numberOfFollowers
 
-
     def commentingScrapingStuff(self):
-
+        pass
 
     def CommentingByList(self, instagramUrlToComment, listOfComments):
         if self._isLogged == False:
