@@ -151,10 +151,10 @@ class RugratsBot:
 
         return numberOfFollowers
 
-    def commentingScrapingStuff(self):
+    def commentingByScrapingStuff(self, instagramUrlToComment, subjectToComment):
         pass
 
-    def CommentingByList(self, instagramUrlToComment, listOfComments):
+    def commentingByList(self, instagramUrlToComment, listOfComments):
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start commenting, run 'yourBabyRugrat.signIn()'"
