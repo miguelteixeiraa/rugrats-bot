@@ -30,7 +30,7 @@ rugratBot.followProfiles("target user")
 rugratBot.getNumberOfFollowers("target user")
 
 # comment a publication by list of phrases/texts
-rugratBot.CommentingByList("instagram url to comment", "list of comments")
+rugratBot.commentingByList("instagram url to comment", "list of comments")
 
 # comment a publication by web scrapping stuff
 rugratBot.commentingByScrapingStuff("instagram url to comment", "subject to comment")
