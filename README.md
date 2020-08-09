@@ -37,12 +37,12 @@ rugratBot.commentingByScrapingStuff("instagram url to comment", "subject to comm
 ```
 
 ## Instagram limits:
-**Accounts older than one year (recommended to not have limited functions by instagram)**
+**Accounts older than one year (recommended to not have got limited by instagram)**
  1. 10 - 15 comments per hour
  2. 600 - 1000 likes a day
  3. 60 - 80 new DMs
  4. 2200 characters in a post or comment (max recommended)
- 5. 5 hashtags in a post or comment (max recommended)
+ 5. 5 hashtags in a post or comment (max recommended) got
 
 
 Make your own luck on instagram promotions :)
