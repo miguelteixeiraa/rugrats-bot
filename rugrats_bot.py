@@ -64,7 +64,7 @@ class RugratsBot:
 
         sleep(5)
         self._rugratSession.driver.ensure_element_by_xpath(
-            "/html/body/div[1]/section/main/div/article/div/div[1]/div/form/div[4]"
+            "/html/body/div[1]/section/main/div/article/div/div[1]/div/form/div/div[3]/button/div"
         ).click()
         # Sign in on instagram **end**
 
