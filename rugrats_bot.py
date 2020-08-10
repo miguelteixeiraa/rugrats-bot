@@ -170,12 +170,12 @@ class RugratsBot:
             try:
                 index = randrange(0, len(listOfComments))
                 sleepTime = randrange(self._rangeTimeBetComments, maxTimeToComment)
-                commentArea = self._rugratSession.driver.ensure_element_by_class_name(
-                    "Ypffh"
+                commentArea = self._rugratSession.driver.ensure_element_by_xpath(
+                    "/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div[1]/form/textarea"
                 )
                 commentArea.click()
-                commentArea = self._rugratSession.driver.ensure_element_by_class_name(
-                    "Ypffh"
+                commentArea = self._rugratSession.driver.ensure_element_by_xpath(
+                    "/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div[1]/form/textarea"
                 )
 
                 if self.isInternetOn() == False:
