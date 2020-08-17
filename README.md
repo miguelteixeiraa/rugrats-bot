@@ -1,7 +1,7 @@
 # RugratsBot
 
 
-An Instagram bot that automates follow and comments (tagging people too).
+An Instagram bot that automates follow and comments.
 
 ```shell
 # 1. install pip
