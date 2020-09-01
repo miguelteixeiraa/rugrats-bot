@@ -46,7 +46,7 @@ class RugratsBot:
             print("No connection available")
         return False
 
-    def login(self, saveLoginInformatin=True) -> None:
+    def login(self, saveLoginInformatin: bool = True) -> None:
         if self._userLogin == "" or self._userPassword == "":
             return
 
