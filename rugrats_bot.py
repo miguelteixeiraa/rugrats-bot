@@ -3,6 +3,7 @@ import sys
 import os
 from random import randrange
 from time import sleep
+from typing import List
 
 from requestium import Session
 from bs4 import BeautifulSoup
@@ -10,7 +11,7 @@ from requests import ConnectionError
 
 
 class RugratsBot:
-    def __init__(self, userLogin=str(), userPass=str()):
+    def __init__(self, userLogin: str, userPass: str):
         self._rugratSession = Session(
             "./chromedriver", browser="chrome", default_timeout=15
         )
@@ -22,20 +23,20 @@ class RugratsBot:
         self._rangeTimeBetComments = 290
         self._rangeTimeBetFollow = 400
 
-    def setLoginInfo(self, userLogin, userPass):
+    def setLoginInfo(self, userLogin: str, userPass: str) -> None:
         self._userLogin = userLogin
         self._userPassword = userPass
 
-    def setInstagramPageUrl(self, instaPageUrl):
+    def setInstagramPageUrl(self, instaPageUrl: str) -> None:
         self._instagramPageUrl = instaPageUrl
 
-    def setListOfComments(self, listOfComments):
+    def setListOfComments(self, listOfComments: List) -> None:
         self._listOfComments = listOfComments
 
-    def setTimeBetComments(self, timeBetweenComments):
+    def setTimeBetComments(self, timeBetweenComments: int) -> None:
         self._rangeTimeBetComments = timeBetweenComments
 
-    def isInternetOn(self):
+    def isInternetOn(self) -> bool:
         url = "https://duckduckgo.com/"
         timeout = 5
         try:
@@ -45,7 +46,7 @@ class RugratsBot:
             print("No connection available")
         return False
 
-    def login(self, saveLoginInformatin=True):
+    def login(self, saveLoginInformatin=True) -> None:
         if self._userLogin == "" or self._userPassword == "":
             return
 
@@ -83,7 +84,7 @@ class RugratsBot:
 
         self._isLogged = True
 
-    def logout(self):
+    def logout(self) -> None:
         if self._isLogged:
             self._rugratSession.driver.get("https://www.instagram.com")
             self._rugratSession.driver.ensure_element_by_xpath(
@@ -94,7 +95,7 @@ class RugratsBot:
             ).click()
             sleep(5)
 
-    def followProfiles(self, targetUser):
+    def followProfiles(self, targetUser: str) -> None:
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start to follow, run 'yourBabyRugrat.signIn()'"
@@ -131,7 +132,7 @@ class RugratsBot:
                 + "]/div/div[3]/button"
             ).click()
 
-    def getNumberOfFollowers(self, targetUser):
+    def getNumberOfFollowers(self, targetUser: str) -> int:
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start commenting, run 'yourBabyRugrat.signIn()'"
@@ -151,10 +152,15 @@ class RugratsBot:
 
         return numberOfFollowers
 
-    def commentingByScrapingStuff(self, instagramUrlToComment, subjectToComment):
+    def commentingByScrapingStuff(
+        self, instagramUrlToComment: str, subjectToComment: str
+    ) -> None:
+        # not implemented yet
         pass
 
-    def commentingByList(self, instagramUrlToComment, listOfComments):
+    def commentingByList(
+        self, instagramUrlToComment: url, listOfComments: List
+    ) -> None:
         if self._isLogged == False:
             raise Exception(
                 "First, yout should be logged in. Before start commenting, run 'yourBabyRugrat.signIn()'"
