@@ -11,7 +11,7 @@ from requests import ConnectionError
 
 
 class RugratsBot:
-    def __init__(self, userLogin: str, userPass: str):
+    def __init__(self, userLogin: str, userPass: str) -> None:
         self._rugratSession = Session(
             "./chromedriver", browser="chrome", default_timeout=15
         )
