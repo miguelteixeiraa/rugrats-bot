@@ -42,7 +42,7 @@ rugratBot.commentingByScrapingStuff("instagram url to comment", "subject to comm
  2. 600 - 1000 likes a day
  3. 60 - 80 new DMs
  4. 2200 characters in a post or comment (max recommended)
- 5. 5 hashtags in a post or comment (max recommended) got
+ 5. 5 hashtags in a post or comment (max recommended)
 
 
 Make your own luck on instagram promotions :)
